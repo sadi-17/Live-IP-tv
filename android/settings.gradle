@@ -12,10 +12,9 @@ if (flutterSdkPath == null) {
     throw new GradleException('Flutter SDK not found. Define location with flutter.sdk in the local.properties file.')
 }
 
-def flutterRoot = file(flutterSdkPath).absoluteFile.getParentFile().getParentFile()
+def flutterRoot = file(flutterSdkPath)
 
-// Flutter root
-gradle.ext.flutterRoot = flutterRoot.getAbsolutePath()
+gradle.ext.flutterRoot = flutterRoot.absolutePath
 gradle.ext.flutterEngineVersion = file(new File(flutterRoot, 'bin/internal/engine.version')).text.strip()
 
 gradle.ext.androidxVersion = '1.1.1'
