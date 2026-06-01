@@ -29,7 +29,8 @@ jobs:
           flutter-version: 'stable'
 
       - name: Enable Android licenses
-        run: flutter doctor --android-licenses <<< "y\ny\ny\ny\ny\n"
+        shell: bash
+        run: yes | flutter doctor --android-licenses
 
       - name: Install dependencies
         run: flutter pub get
