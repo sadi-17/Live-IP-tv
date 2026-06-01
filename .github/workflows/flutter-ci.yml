@@ -36,6 +36,13 @@ jobs:
           git clone https://github.com/flutter/flutter.git --branch stable --depth 1 ~/flutter
           echo "$HOME/flutter/bin" >> $GITHUB_PATH
 
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
       - name: Verify Flutter installation
         run: flutter --version
 
@@ -43,7 +50,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release -v
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
