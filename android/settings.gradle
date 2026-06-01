@@ -1,22 +1,25 @@
-include ':app'
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        file("local.properties").withInputStream { properties.load(it) }
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }()
 
-def localPropertiesFile = new File(rootDir, 'local.properties')
-def properties = new Properties()
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader -> properties.load(reader) }
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 
-def flutterSdkPath = properties.getProperty('flutter.sdk')
-if (flutterSdkPath == null) {
-    throw new GradleException('Flutter SDK not found. Define location with flutter.sdk in the local.properties file.')
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "7.3.0" apply false
+    id "org.jetbrains.kotlin.android" version "1.7.10" apply false
 }
 
-def flutterRoot = file(flutterSdkPath)
-
-gradle.ext.flutterRoot = flutterRoot.absolutePath
-gradle.ext.flutterEngineVersion = file(new File(flutterRoot, 'bin/internal/engine.version')).text.strip()
-
-gradle.ext.androidxVersion = '1.1.1'
-gradle.ext.androidxTestVersion = '1.5.0'
-gradle.ext.androidGradlePluginVersion = '7.3.0'
+include ":app"
