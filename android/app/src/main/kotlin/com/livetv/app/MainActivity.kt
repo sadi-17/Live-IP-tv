@@ -1,5 +1,13 @@
 package com.livetv.app
 
-import io.flutter.embedding.android.FlutterActivity
+import com.facebook.react.ReactActivity
+import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
+import com.facebook.react.defaults.DefaultReactActivityDelegate
 
-class MainActivity : FlutterActivity()
+class MainActivity : ReactActivity() {
+    override fun getMainComponentName(): String = "LiveTV"
+
+    override fun createReactActivityDelegate(): ReactActivityDelegate =
+        DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+}

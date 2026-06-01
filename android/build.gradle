@@ -1,18 +1,20 @@
-allprojects {
+buildscript {
+    ext {
+        buildToolsVersion = "34.0.0"
+        minSdkVersion    = 23
+        compileSdkVersion = 34
+        targetSdkVersion = 34
+        ndkVersion       = "26.1.10909125"
+        kotlinVersion    = "1.9.22"
+    }
     repositories {
         google()
         mavenCentral()
     }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.3.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    }
 }
 
-rootProject.buildDir = "../build"
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(":app")
-}
-
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
-}
+apply plugin: "com.facebook.react.rootproject"

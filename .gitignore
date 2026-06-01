@@ -1,25 +1,28 @@
-# Flutter
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-build/
-pubspec.lock
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
+# React Native
+.bundle/
+*.jsbundle
 
-# OS
+# Android build output
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+
+# iOS
+ios/build/
+ios/Pods/
+
+# Editor / OS
 .DS_Store
-nul
-
-# Generated files
+.idea/
 *.iml
-.gradle/
-local.properties
+.vscode/
 
-# Web
-web/
+# Secrets (keep debug.keystore committed for CI)
+*.jks
+!android/app/debug.keystore
