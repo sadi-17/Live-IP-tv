@@ -23,11 +23,14 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
+      - name: Install Flutter SDK
+        shell: bash
+        run: |
+          git clone https://github.com/flutter/flutter.git --branch stable --depth 1 /tmp/flutter
+          echo "/tmp/flutter/bin" >> "$GITHUB_PATH"
+          echo "/tmp/flutter/bin/cache/dart-sdk/bin" >> "$GITHUB_PATH"
+          export PATH="/tmp/flutter/bin:$PATH"
+          flutter --version
 
       - name: Enable Android licenses
         shell: bash
